@@ -61,15 +61,28 @@ export default {
           this.userInfo = res.data;
           console.log(this.userInfo);
         });
-      axios
-        .get(
-          `https://www.vue-js.com/api/v1/message/count?accesstoken=${this.text}`
-        )
-        .then(res => {
-          this.messageNum = res.data.data;
-          console.log(res.data);
-          // 将得到的信息存储到本地浏览器
-        });
+    }
+  },
+  watch: {
+    "$route.fullPath": {
+      immediate: true,
+
+      handler() {
+        if (sessionStorage.getItem("token")) {
+          axios
+            .get(
+              `https://www.vue-js.com/api/v1/message/count?accesstoken=${sessionStorage.getItem(
+                "token"
+              )}`
+            )
+            .then(res => {
+              this.messageNum = res.data.data;
+              console.log(res.data);
+              console.log(sessionStorage.getItem("token"));
+              // 将得到的信息存储到本地浏览器
+            });
+        }
+      }
     }
   },
   methods: {
