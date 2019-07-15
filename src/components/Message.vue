@@ -10,11 +10,15 @@
           class="title"
           :to="`/user/${hasNotMessage.author.loginname}`"
         >{{hasNotMessage.author.loginname}}</router-link>
-        <span class="padding-lr">回复了你的话题</span>
+        <span class="padding-lr">{{hasNotMessage.type==='at'?'在话题':'回复了你的话题'}}</span>
         <router-link
           class="title"
           :to="`/topics/${hasNotMessage.topic.id}`"
         >{{hasNotMessage.topic.title}}</router-link>
+        <span class="padding-lr">{{hasNotMessage.type==='at'?'中@了你':''}}</span>
+        <div class="time opcity">
+          <img src="https://www.vue-js.com/public/images/checkmark_icon&16.png" alt />
+        </div>
       </div>
       <div class="cell more" v-if="!hasNotMessages.length">无话题</div>
     </div>
@@ -56,9 +60,9 @@ export default {
       )
       .then(res => {
         this.messageNum = res.data.data;
-        console.log(res.data);
+        console.log(res.data.data);
         this.hasMessages = res.data.data.has_read_messages;
-        this.haNotMessages = res.data.data.hasnot_read_messages;
+        this.hasNotMessages = res.data.data.hasnot_read_messages;
         // 将得到的信息存储到本地浏览器
       });
   }
@@ -76,5 +80,8 @@ export default {
 }
 .message .panel .cell img {
   width: 16px;
+}
+.message .opcity {
+  opacity: 0.1;
 }
 </style>

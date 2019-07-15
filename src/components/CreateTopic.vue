@@ -100,6 +100,7 @@ export default {
   background-color: #fff;
   padding: 15px;
   border-bottom: 1px solid #ccc;
+  position: relative;
 }
 .create select {
   width: 220px;
@@ -122,8 +123,9 @@ export default {
   height: 500px;
 }
 .create .post button {
-  left: 70px;
-  bottom: -45px;
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
 }
 .create .ql-editor {
   height: 500px;
