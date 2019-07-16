@@ -4,7 +4,7 @@
       <li>
         <router-link
           @click.native="total=860"
-          :class="$route.fullPath.indexOf('all')!=-1||$route.fullPath===$publicUrl?'active':''"
+          :class="$route.fullPath.indexOf('all')!=-1||$route.fullPath===$publicUrl||$route.fullPath===$publicUrl+'/'?'active':''"
           :to="$publicUrl+'/?tab=all'"
         >全部</router-link>
       </li>
