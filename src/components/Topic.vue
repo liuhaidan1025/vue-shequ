@@ -40,7 +40,7 @@
         :key="comment.id"
         :style="{backgroundColor:isUped(comment.id)?'#f4fcf0':''}"
       >
-        <router-link :to="`/user/${comment.author.loginname}`">
+        <router-link :to="`${$publicUrl}/user/${comment.author.loginname}`">
           <img :src="comment.author.avatar_url" alt />
         </router-link>
 

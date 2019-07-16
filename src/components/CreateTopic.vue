@@ -2,7 +2,7 @@
   <div class="create">
     <div class="panel postion">
       <div class="head">
-        <router-link to="/" class="head-home">主页</router-link>
+        <router-link :to="$publicUrl" class="head-home">主页</router-link>
         <span>/</span>
       </div>
       <div class="tab-selector">
@@ -68,7 +68,7 @@ export default {
           this.content = "";
           this.tab = "";
 
-          this.$router.push(`/topics/${res.data.topic_id}`);
+          this.$router.push(`${this.$publicUrl}/topics/${res.data.topic_id}`);
         });
     },
     onEditorBlur(quill) {

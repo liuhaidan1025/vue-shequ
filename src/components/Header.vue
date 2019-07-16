@@ -1,17 +1,17 @@
 <template>
   <header>
     <div class="header-inner df">
-      <router-link to="/" class="logo df">
+      <router-link :to="$publicUrl" class="logo df">
         <img src="https://www.vue-js.com/public/images/vue.png" alt />
         <span>Vue.js</span>
       </router-link>
       <div v-if="userInfo" class="myMessage">
         <span>{{messageNum!=0?messageNum:''}}</span>
-        <router-link to="/my/messages">未读消息</router-link>
+        <router-link :to="$publicUrl+'/my/messages'">未读消息</router-link>
       </div>
       <div class="create-box">
         <button v-if="userInfo && $route.path!='/topic/create'" class="createBtn">
-          <router-link to="/topic/create">发布话题</router-link>
+          <router-link :to="$publicUrl+'/topic/create'">发布话题</router-link>
         </button>
       </div>
       <div v-if="!userInfo" class="login">
@@ -20,7 +20,7 @@
       </div>
 
       <div v-else class="logout df">
-        <router-link :to="`/user/${userInfo.loginname}`">
+        <router-link :to="`${$publicUrl}/user/${userInfo.loginname}`">
           <img :src="userInfo.avatar_url" alt />
         </router-link>
 
@@ -50,7 +50,9 @@ export default {
       messageNum: ""
     };
   },
+
   created() {
+    console.log(this.$publicUrl);
     // 获取存储好的 token ，依据这个 token 向后台获取更新登陆状态
     if (sessionStorage.getItem("token")) {
       axios
@@ -97,13 +99,13 @@ export default {
           // 将得到的信息存储到本地浏览器
           sessionStorage.setItem("token", this.text);
           sessionStorage.setItem("user_id", res.data.id);
-          this.$router.push("/");
+          this.$router.push(this.$publicUrl);
         });
     },
     logout() {
       sessionStorage.clear();
       this.userInfo = null;
-      this.$router.push("/");
+      this.$router.push(this.$publicUrl);
     }
   }
 };

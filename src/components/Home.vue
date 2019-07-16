@@ -4,49 +4,49 @@
       <li>
         <router-link
           @click.native="total=860"
-          :class="$route.fullPath.indexOf('all')!=-1||$route.fullPath==='/'?'active':''"
-          to="/?tab=all"
+          :class="$route.fullPath.indexOf('all')!=-1||$route.fullPath===$publicUrl?'active':''"
+          :to="$publicUrl+'/?tab=all'"
         >全部</router-link>
       </li>
       <li>
         <router-link
           @click.native="total=15"
           :class="$route.fullPath.indexOf('good')!=-1?'active':''"
-          to="/?tab=good"
+          :to="$publicUrl+'/?tab=good'"
         >精华</router-link>
       </li>
       <li>
         <router-link
           @click.native="total=3"
           :class="$route.fullPath.indexOf('weex')!=-1?'active':''"
-          to="/?tab=weex"
+          :to="$publicUrl+'/?tab=weex'"
         >weex</router-link>
       </li>
       <li>
         <router-link
           @click.native="total=247"
           :class="$route.fullPath.indexOf('share')!=-1?'active':''"
-          to="/?tab=share"
+          :to="$publicUrl+'/?tab=share'"
         >分享</router-link>
       </li>
       <li>
         <router-link
           @click.native="total=577"
           :class="$route.fullPath.indexOf('ask')!=-1?'active':''"
-          to="/?tab=ask"
+          :to="$publicUrl+'/?tab=ask'"
         >问答</router-link>
       </li>
       <li>
         <router-link
           @click.native="total=30"
           :class="$route.fullPath.indexOf('job')!=-1?'active':''"
-          to="/?tab=job"
+          :to="$publicUrl+'/?tab=job'"
         >招聘</router-link>
       </li>
     </ul>
     <ul class="home-topic" v-if="topics.length">
       <li v-for="topic in topics" :key="topic.id" class="topic-list df">
-        <router-link :to="`/user/${topic.author.loginname}`">
+        <router-link :to="`${$publicUrl}/user/${topic.author.loginname}`">
           <img :src="topic.author.avatar_url" alt />
         </router-link>
         <div class="count">
@@ -57,7 +57,7 @@
           v-if="$route.fullPath.indexOf('all')!=-1||$route.fullPath==='/'||topic.top||topic.good"
           :class="{tab:true, active:topic.top||topic.good}"
         >{{topic.top?'置顶':topic.good?'精华':topic.tab==='share'?'分享':topic.tab==='job'?'招聘':'weex'}}</span>
-        <router-link :to="`/topics/${topic.id}`" class="title">{{topic.title}}</router-link>
+        <router-link :to="`${$publicUrl}/topics/${topic.id}`" class="title">{{topic.title}}</router-link>
         <span class="time">{{myMoment(topic.last_reply_at)}}</span>
       </li>
     </ul>
@@ -123,7 +123,7 @@ export default {
       //     this.topics = res.data.data;
       //   });
       const tab = this.$route.query.tab || "all";
-      this.$router.push(`/?tab=${tab}&page=${num}`);
+      this.$router.push(`${this.$publicUrl}/?tab=${tab}&page=${num}`);
     }
   }
 };
